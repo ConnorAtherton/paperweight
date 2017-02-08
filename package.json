@@ -2,9 +2,13 @@
   "name": "paperweight",
   "version": "0.1.0",
   "description": "",
-  "main": "src/paperweight.js",
+  "main": "dist/paperweight.js",
+  "style": "dist/paperweight.css",
+  "typings": "dist/paperweight.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "serve": "hs -p 4000 demo"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,17 @@
   "bugs": {
     "url": "https://github.com/ConnorAtherton/paperweight/issues"
   },
-  "homepage": "https://github.com/ConnorAtherton/paperweight#readme"
+  "homepage": "https://github.com/ConnorAtherton/paperweight#readme",
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "http-server": "^0.9.0",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "file-loader": "^0.10.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
 }
