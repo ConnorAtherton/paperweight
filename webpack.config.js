@@ -6,12 +6,13 @@ const DEST = path.resolve('./dist')
 const NAME = 'paperweight'
 
 module.exports = {
-  entry: [
-    `${SRC}/index.ts`,
-  ],
+  entry: {
+    paperweight: `${SRC}/paperweight.ts`,
+    demo: `${SRC}/demo.tsx`
+  },
 
   module: {
-    loaders: [
+    rules: [
       {
         include: SRC,
         loader: 'ts-loader',
@@ -31,8 +32,8 @@ module.exports = {
   },
 
   output: {
-    filename: `${NAME}.js`,
     path: DEST,
+    filename: '[name].js'
   },
 
   plugins: [
@@ -41,5 +42,10 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.ts', '.tsx']
-  }
+  },
+
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
 };
