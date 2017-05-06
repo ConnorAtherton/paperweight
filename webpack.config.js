@@ -20,8 +20,11 @@ module.exports = {
       }, {
         include: SRC,
         loader: ExtractTextPlugin.extract({
-          fallback: 'style',
-          use: 'css!postcss!sass'
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'sass-loader'
+          ]
         }),
         test: /\.sass$/,
       }, {
