@@ -1,13 +1,21 @@
 import * as React from 'react'
 import { Component } from 'react'
 import validatorComponent from '../validator'
+import { TextField } from '../text'
 
-interface EmailFieldState {
+export interface EmailFieldState {
   currentVal: string
   shadowVal: string
 }
 
-class EmailFieldClass extends React.Component<any, EmailFieldState> {
+export class EmailFieldClass extends React.Component<any, EmailFieldState> {
+  public static displayName = 'Paperweight.EmailField'
+
+  public state: EmailFieldState = {
+    currentVal: '',
+    shadowVal: ''
+  }
+
   private static autoCompleteChars = new Set([
     9,
     13,
@@ -19,16 +27,33 @@ class EmailFieldClass extends React.Component<any, EmailFieldState> {
     'google.com'
   ])
 
-  public render () {
-    const {
-      storeRef,
-      ...rest
-    } = this.props
+  protected handleKeyUp = (e: React.KeyboardEvent<any>) => {
+  }
 
+  private suggestCompletion = (e) => {
+  }
+
+  private wrapSetState = (fn) => e => this.setState({ currentVal: e.target.value }, () => fn(e))
+
+  public render () {
     return (
-      <input ref={c => storeRef(c)} {...rest} />
+      <section>
+        <input
+          value={this.state.shadowVal}
+          disabled
+          readOnly
+          autoComplete='off' />
+
+        <TextField
+          label='Email'
+          name='email'
+          {...this.props}
+          value={this.state.currentVal}
+          onValidChange={this.wrapSetState(this.suggestCompletion)}
+          onInvalidChange={this.wrapSetState(this.props.onInvalidChange)} />
+      </section>
     )
   }
 }
 
-export const EmailField = validatorComponent(EmailFieldClass)
+export const EmailField = EmailFieldClass

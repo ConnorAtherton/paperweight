@@ -2,6 +2,8 @@ import * as React from 'react'
 import validatorComponent, { ValidatorHookProps } from '../validator'
 
 class TextFieldClass extends React.Component<any, any> {
+  public static displayName = 'Paperweight.TextField'
+
   public render () {
     const {
       storeRef,

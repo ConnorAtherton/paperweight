@@ -9,7 +9,15 @@ const App = () => (
   <Form>
     <TextField
       label='Text'
-      name='text' />
+      name='text'
+      validators={[
+        {
+          func: val => val.length < 10,
+          message: 'Text must be less than 10 chars'
+        }
+      ]}
+      onValidChange={e => console.log('=> Valid change', e)}
+      onInvalidChange={e => console.log('=> Invalid change', e)} />
     <TextField
       label='Contact name'
       name='contact[name]' />

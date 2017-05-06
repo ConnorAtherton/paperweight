@@ -1,6 +1,7 @@
 .c-paperweight-form-field
   font-size: 1rem
-  margin-bottom: 18px
+  margin-bottom: 22px
+  position: relative
 
 .c-paperweight-label
   display: block
@@ -20,3 +21,10 @@
   &:hover
     outline: 0
     border-color: #33d1ff
+
+  &.is-error
+    border: 1px solid red
+
+.c-paperweight-input-error
+  position: absolute
+  color: red
