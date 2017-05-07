@@ -27,6 +27,11 @@ const App = () => (
     <EmailField
       label='Email'
       name='email' />
+    <section>
+      <EmailField
+        label='Email'
+        name='email' />
+    </section>
   </Form>
 )
 

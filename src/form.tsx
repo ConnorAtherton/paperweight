@@ -14,18 +14,21 @@ export interface FormState {
 }
 
 class Form extends React.Component<FormProps, FormState> {
-  // public componentDidMount() {
-  //   let children = this.props.children
+  public componentWillMount() {
+    let children: React.ReactChild[] = React.Children.toArray(this.props.children)
 
-  //   console.log('Initial =>', children)
+    console.log('=> Initial children', children)
 
-  //   while (children.length) {
-  //     children.forEach(console.log)
-  //     React.Children.map(children, x => console.log((x as any))
+    const traverse = (children): void => {
+      if (!children) return
 
-  //     children = children.props.children
-  //   }
-  // }
+      React.Children.forEach(children, child => {
+        console.log(child)
+      })
+    }
+
+    traverse(this.props.children)
+  }
 
   private onSubmit (e: React.FormEvent<any>) {
     e.preventDefault()

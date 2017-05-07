@@ -35,9 +35,17 @@ export interface ValidatorState {
 }
 
 export default function HigherOrderComponent (
-  WrappedComponent: React.ComponentClass<any> | React.StatelessComponent<any>
+  WrappedComponent: React.ReactType
 ) : React.ComponentClass<any> {
   return class extends Component<ValidatorPropTypes, ValidatorState> {
+    /**
+     * NOTE: Set a value on each node...
+     *
+     * We use this inside the `Form` component when it initially traverses all child noes to know
+     * whether the current component we are looking at should automatically be bound to the form
+     * state.
+     */
+
     private ref: HTMLElement
 
     public state = {
