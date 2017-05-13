@@ -13,8 +13,9 @@ export type Validators = Array<Validator>
 export interface ValidatorPropTypes {
   name: string
   label: string | React.Component<any, any>
+  className?: string
   onValidChange: (e) => void
-  onInvalidChange?: (e) => void
+  onInvalidChange: (e) => void
   validators?: Validators
   required?: boolean
   onBlur?: (e) => void
@@ -105,17 +106,31 @@ export default function HigherOrderComponent (
     }
 
     public render () {
+      const {
+        label,
+        name,
+        required,
+
+        // These are props we use internally that should never be passed to a native component
+        validators,
+        onValidChange,
+        onInvalidChange,
+
+        ...rest
+      } = this.props
+
       return (
         <section className='c-paperweight-form-field'>
-          <label htmlFor={this.props.name} className='c-paperweight-label'>
-            {this.props.label}
-            {this.props.required && <span>*</span>}
+          <label htmlFor={name} className='c-paperweight-label'>
+            {label}
+            {required && <span>*</span>}
           </label>
 
           <WrappedComponent
+            {...rest}
             storeRef={this.storeRef}
-            className={`c-paperweight-input ${this.state.error ? 'is-error' : ''}`}
-            name={this.props.name}
+            className={`c-paperweight-input ${this.state.error ? 'is-error' : ''} ${this.props.className ? this.props.className : ''}`}
+            name={name}
             onBlur={this.onBlur.bind(this)}
             onChange={this.onBlur.bind(this)} />
 
