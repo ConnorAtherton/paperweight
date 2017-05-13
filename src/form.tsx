@@ -13,21 +13,45 @@ export interface FormState {
   validations: {}
 }
 
+declare type oneOrMoreReactElements = React.ReactElement<any> | React.ReactElement<any>[] | string | null
+
 class Form extends React.Component<FormProps, FormState> {
-  public componentWillMount() {
-    let children: React.ReactChild[] = React.Children.toArray(this.props.children)
+  private onValidFieldChange = (e) => {
+    console.log('=> Valid field at form level:', e.target.name)
+  }
 
-    console.log('=> Initial children', children)
+  private onInvalidFieldChange = (e) => {
+    console.log('=> Invalid field at form level:', e.target.name)
+  }
 
-    const traverse = (children): void => {
-      if (!children) return
+  private renderModifiedChildren () {
+    const traverse = (children) => {
+      if (!children) return null
+      if (children instanceof String) return children
 
-      React.Children.forEach(children, child => {
-        console.log(child)
+      return React.Children.map(children, child => {
+        if (!React.isValidElement(child)) {
+          return child
+        }
+
+        if (((child as React.ReactElement<any>).type as any).__validated__) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            onValidChange: this.onValidFieldChange,
+            onInvalidChange: this.onInvalidFieldChange
+          })
+        }
+
+        // HACK
+        // console.log((child as React.ReactElement<any>).type)
+        // console.log(((child as React.ReactElement<any>).type as any).__validated__)
+
+        return React.cloneElement(child as React.ReactElement<any>, {
+          children: traverse((child.props as any).children)
+        })
       })
     }
 
-    traverse(this.props.children)
+    return traverse(this.props.children)
   }
 
   private onSubmit (e: React.FormEvent<any>) {
@@ -39,7 +63,7 @@ class Form extends React.Component<FormProps, FormState> {
   public render () {
     return (
       <form onSubmit={this.onSubmit}>
-        {this.props.children}
+        {this.renderModifiedChildren()}
 
         <button type='submit'>
           Submit

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import{ Component } from 'react'
+import { Component } from 'react'
 
 export interface Validator {
   func: (value: string | Object) => boolean
@@ -45,6 +45,7 @@ export default function HigherOrderComponent (
      * whether the current component we are looking at should automatically be bound to the form
      * state.
      */
+    public static __validated__: boolean = true
 
     private ref: HTMLElement
 
