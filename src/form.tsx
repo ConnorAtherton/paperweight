@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
+import * as _set from 'lodash.set'
 
 export interface FormProps extends React.HTMLProps<HTMLFormElement> {
   onSubmit?: (values: Object) => void,
@@ -31,30 +32,31 @@ class Form extends React.Component<FormProps, FormState> {
     const values = this.state.values
     const validations = this.state.validations
 
-    values[e.target.name] = e.target.value
+    /**
+     * We keep validations as a flat data structure because we only care about whether each key
+     * is valid, and it is far easier to do it with one loop of object values than traversing
+     * a nested structure.
+     */
+    _set(values, e.target.name, e.target.value)
     validations[e.target.name] = true
 
     this.setState(
       { values, validations },
       () => this.props.onValueChange(this.state.values, this.state.validations)
     )
-
-    console.log('=> Valid field at form level:', e.target.name)
   }
 
   private onInvalidFieldChange = (e) => {
     const values = this.state.values
     const validations = this.state.validations
 
-    values[e.target.name] = e.target.value
+    _set(values, e.target.name, e.target.value)
     validations[e.target.name] = false
 
     this.setState(
       { values, validations },
       () => this.props.onValueChange(this.state.values, this.state.validations)
     )
-
-    console.log('=> Invalid field at form level:', e.target.name)
   }
 
   private renderModifiedChildren () {

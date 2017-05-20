@@ -41,13 +41,13 @@ class App extends React.Component<null, AppState> {
               ]} />
             <TextField
               label='Contact name'
-              name='contact[name]' />
+              name='contact.name' />
             <TextField
               label='Contact phone'
-              name='contact[phone]' />
+              name='contact.phone' />
             <EmailField
               label='Email'
-              name='email' />
+              name='contact.email' />
           </Form>
         </div>
       </section>

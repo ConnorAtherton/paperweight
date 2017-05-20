@@ -125,10 +125,10 @@ export class EmailFieldClass extends React.Component<any, EmailFieldState> {
           name='email'
           className='c-paperweight-email-input-focus'
           validators={[
-            // {
-            //   func: val => val.length < 3,
-            //   message: 'Text must be less than 10 chars'
-            // }
+            {
+              func: val => val.length < 3,
+              message: 'Text must be less than 10 chars'
+            }
           ]}
           {...allowedProps}
           value={this.state.currentVal}
