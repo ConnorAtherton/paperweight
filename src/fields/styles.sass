@@ -1,3 +1,7 @@
+$color-gray-light: #eaeaea
+$color-error: red
+$color-primary: #33d1ff
+
 .c-paperweight-form-field
   font-size: 1rem
   margin-bottom: 22px
@@ -13,21 +17,21 @@
   width: 100%
   padding: 6px 10px
   border-radius: 2px
-  border: 1px solid #eaeaea
+  border: 1px solid $color-gray-light
   line-height: 1.4
   font-size: 1rem
 
   &:focus,
   &:hover
     outline: 0
-    border-color: #33d1ff
+    border-color: $color-primary
 
   &.is-error
-    border: 1px solid red
+    border: 1px solid $color-error
 
 .c-paperweight-input-error
   position: absolute
-  color: red
+  color: $color-error
 
 .u-pos-relative
   position: relative
@@ -50,4 +54,4 @@
 
 .c-paperweight-email-input-shadow
   z-index: 1
-  color: #dedede
+  color: $color-gray-light

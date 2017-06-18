@@ -49,9 +49,13 @@ export class EmailFieldClass extends React.Component<any, EmailFieldState> {
     let [before, after] = e.target.value.split('@')
     let matchedDomain = null
 
+    console.log('=> suggestion completion now 1', before, after)
+
     // Means we have reached the host portion of the email
     if (after) {
       after = after.toLowerCase()
+
+      console.log('=> suggestion completion now 2')
 
       for (const domain of this.autoCompleteDomains) {
         if (after === domain.substr(0, after.length)) {
@@ -124,12 +128,6 @@ export class EmailFieldClass extends React.Component<any, EmailFieldState> {
           label='Email'
           name='email'
           className='c-paperweight-email-input-focus'
-          validators={[
-            {
-              func: val => val.length < 3,
-              message: 'Text must be less than 10 chars'
-            }
-          ]}
           {...allowedProps}
           value={this.state.currentVal}
           onValidChange={this.wrapSetState(this.suggestCompletion)}
