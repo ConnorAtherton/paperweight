@@ -123,7 +123,7 @@ export default function HigherOrderComponent (
         <section className='c-paperweight-form-field'>
           <label htmlFor={name} className='c-paperweight-label'>
             {label}
-            {required && <span>*</span>}
+            {!required && <span> (optional)</span>}
           </label>
 
           <WrappedComponent

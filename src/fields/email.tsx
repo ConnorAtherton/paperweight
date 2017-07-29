@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Component } from 'react'
-import validatorComponent from '../validator'
-import { TextField } from '../text'
-import validated from '../../decorators/validated'
+import validatorComponent from './validator'
+import { TextField } from './text'
+import validated from '../decorators/validated'
 
 export interface EmailFieldState {
   currentVal?: string

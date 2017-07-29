@@ -1,19 +1,19 @@
 import * as React from 'react'
 import * as _set from 'lodash.set'
 
-export interface FormProps extends React.HTMLProps<HTMLFormElement> {
-  onSubmit?: (values: Object) => void,
-  onValueChange?: (values: Object, validations: Object) => void,
-  onValidSubmit?: (value: Object) => void,
-  onInvalidSubmit?: (value: Object) => void
-}
-
 export interface FormState {
   hasBeenSubmitted?: boolean,
   isValid?: boolean,
   values?: Object,
   validations?: Object,
   fieldNames?: string[]
+}
+
+export interface FormProps extends React.HTMLProps<HTMLFormElement> {
+  onSubmit?: (values: Object) => void,
+  onValueChange?: (state: FormState) => void,
+  onValidSubmit?: (value: Object) => void,
+  onInvalidSubmit?: (value: Object) => void
 }
 
 declare type oneOrMoreReactElements = React.ReactElement<any> | React.ReactElement<any>[] | string | null
@@ -24,6 +24,13 @@ class Form extends React.Component<FormProps, FormState> {
     isValid: false,
     values: {},
     validations: {}
+  }
+
+  private constructor (props) {
+    super(props)
+
+    // Send initial state up to whatever component wants it
+    this.props.onValueChange(this.state)
   }
 
   private hasInitialFieldValues: boolean = false
@@ -42,7 +49,7 @@ class Form extends React.Component<FormProps, FormState> {
 
     this.setState(
       { values, validations },
-      () => this.props.onValueChange(this.state.values, this.state.validations)
+      () => this.props.onValueChange(this.state)
     )
   }
 
@@ -55,7 +62,7 @@ class Form extends React.Component<FormProps, FormState> {
 
     this.setState(
       { values, validations },
-      () => this.props.onValueChange(this.state.values, this.state.validations)
+      () => this.props.onValueChange(this.state)
     )
   }
 
